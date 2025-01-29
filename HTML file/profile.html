@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Profile</title>
+    <<link rel="stylesheet" href="..\Style\styles.css">
+    <link rel="stylesheet" href="..\Style\profile.css">
+</head>
+<body>
+    <header>
+        <h1>About Our Hospital</h1>
+        <a href="dashboard.html">Back to Dashboard</a>
+    </header>
+    <main>
+        <section class="carousel" id="carousel">
+            <div class="carousel-container">
+                <!-- Slide 1 -->
+                <div class="carousel-slide slide-1">
+                    <h2>High-Quality Patient Care</h2>
+                    <p>"Our hospital is dedicated to providing personalized, high-quality care for every patient. We believe that healthcare goes beyond just treating symptoms; it’s about fostering a safe and nurturing environment where patients feel respected and valued. Our team strives to meet each patient’s unique needs with sensitivity and empathy. From preventive care to critical interventions, we ensure that every aspect of our care is patient-centered, allowing for optimal recovery and comfort. Our commitment to compassionate care aims to improve not just health outcomes but also the overall patient experience."</p>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-slide slide-2">
+                    <h2>Advanced Medical Equipment</h2>
+                    <p>"Our facility is equipped with the latest in medical technology to support accurate diagnostics and effective treatments. From imaging technology like MRI and CT scanners to advanced surgical tools, our equipment ensures precision and efficiency in every procedure. These resources not only enhance our ability to diagnose and treat complex cases but also reduce recovery time and improve patient outcomes. By continually updating our technology, we’re able to offer top-tier services that keep pace with advances in the medical field, allowing us to provide care that’s both innovative and effective."</p>
+                </div>
+                <!-- Slide 3 -->
+                <div class="carousel-slide slide-3">
+                    <h2>Experienced and Caring Staff</h2>
+                    <p>"We are proud to have a team of highly skilled and compassionate professionals, including doctors, nurses, technicians, and support staff, all dedicated to the highest standards of patient care. Our staff is well-trained in the latest medical practices and continues to receive education and training to stay at the forefront of medical advancements. Every staff member is committed to delivering respectful, empathetic care, creating a healing environment where patients feel both physically and emotionally supported. Their experience and passion drive our mission to provide exceptional healthcare."</p>
+                </div>
+                <!-- Slide 4 -->
+                <div class="carousel-slide slide-4">
+                    <h2>Comprehensive Health Services</h2>
+                    <p>"Our hospital offers a full spectrum of healthcare services to address a wide range of medical needs. From preventive screenings and primary care to specialized services such as cardiology, neurology, and orthopedics, we provide holistic health solutions for individuals of all ages. In addition to acute care, we offer rehabilitation and physical therapy programs designed to support long-term recovery. Our goal is to be a one-stop center for healthcare, ensuring that patients can access the care they need under one roof. Every service is tailored to promote health, wellness, and continuity of care."</p>
+                </div>
+                <!-- Slide 5 -->
+                <div class="carousel-slide slide-5">
+                    <h2>24/7 Emergency Assistance</h2>
+                    <p>"Our emergency department operates around the clock, ensuring that patients receive immediate attention during medical emergencies. Staffed with experienced physicians, nurses, and specialists trained to handle critical situations, we are ready to provide life-saving interventions at any time of day or night. Our emergency team works swiftly and efficiently, utilizing state-of-the-art equipment to assess and treat patients with the urgency required. We know that in an emergency, every second counts, and our team is dedicated to delivering prompt, compassionate care when it matters most, supporting patients and families in crisis."</p>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button onclick="prevSlide()">❮</button>
+                <button onclick="nextSlide()">❯</button>
+            </div>
+        </section>
+    </main>
+    <script>
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            const carouselContainer = document.querySelector('.carousel-container');
+            const totalSlides = document.querySelectorAll('.carousel-slide').length;
+            if (index >= totalSlides) currentSlide = 0;
+            if (index < 0) currentSlide = totalSlides - 1;
+            carouselContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        // Auto-slide every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Initialize the first slide
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Records</title>
+    <link rel="stylesheet" href="..\Style\styles.css">
+    <link rel="stylesheet" href="..\Style\DataStyles.css"><!-- You can customize this CSS file for the doctor page as well -->
+</head>
+<body>
+    <header>
+        <h1>Doctor Records</h1>
+        <a href="dashboard.html">Back to Dashboard</a> <!-- Link back to the main dashboard -->
+    </header>
+    <main>
+        <table id="doctors-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Specialization</th>
+                    <th>Contact</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Doctor data will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        async function fetchDoctorRecords() {
+            try {
+                const response = await fetch('http://localhost:3000/doctors'); // Fetching doctors from the API
+                if (!response.ok) throw new Error('Network response was not ok');
+                const doctors = await response.json();
+
+                const doctorsTable = document.getElementById('doctors-table').querySelector('tbody');
+                doctorsTable.innerHTML = ''; // Clear any existing rows
+
+                doctors.forEach(doctor => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${doctor.doctor_id}</td> <!-- Assuming you have an ID field -->
+                        <td>${doctor.first_name}</td>
+                        <td>${doctor.last_name}</td>
+                        <td>${doctor.specialization}</td>
+                        <td>${doctor.contact}</td>
+                        <td>${doctor.email}</td>
+                    `;
+                    doctorsTable.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching doctor records:', error);
+            }
+        }
+
+        window.onload = fetchDoctorRecords; // Fetch doctor records when the page loads
+    </script>
+</body>
+</html>

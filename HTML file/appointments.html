@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Records</title>
+    <link rel="stylesheet" href="..\Style\styles.css">
+    <link rel="stylesheet" href="..\Style\DataStyles.css">
+</head>
+<body>
+    <header>
+        <h1>Appointment Records</h1>
+        <a href="dashboard.html">Back to Dashboard</a>
+    </header>
+    <main>
+        <table id="appointments-table">
+            <thead>
+                <tr>
+                    <th>Appointment ID</th>
+                    <th>Patient Name</th>
+                    <th>Doctor Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Appointment data will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        async function fetchAppointmentRecords() {
+            try {
+                const response = await fetch('http://localhost:3000/appointments');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const appointments = await response.json();
+
+                const appointmentsTable = document.getElementById('appointments-table').querySelector('tbody');
+                appointmentsTable.innerHTML = '';
+
+                appointments.forEach(appointment => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${appointment.appointment_id}</td>
+                        <td>${appointment.patient_name}</td>
+                        <td>${appointment.doctor_name}</td>
+                        <td>${appointment.appointment_date}</td>
+                        <td>${appointment.appointment_time}</td>
+                    `;
+                    appointmentsTable.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching appointment records:', error);
+            }
+        }
+
+        window.onload = fetchAppointmentRecords;
+    </script>
+</body>
+</html>

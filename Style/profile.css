@@ -1,0 +1,101 @@
+/* General Body Styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f3f3f3;
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  background: #4caf50;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: end;
+  justify-content: end;
+}
+
+/* Carousel */
+.carousel {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 30px auto;
+}
+
+.carousel-container {
+  display: flex;
+  transition: transform 3s ease;
+  width: 100%;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  box-sizing: border-box;
+  padding: 190px 100px;
+  text-align: center;
+  background-color: #fff; /* White background for hospital details */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  opacity: 0.9;
+}
+
+.carousel-slide h2 {
+  font-size: 1.8em;
+  color: #4caf50;
+}
+
+.carousel-slide p {
+  font-size: 1.1em;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Carousel Controls */
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.carousel-controls button {
+  background-color: rgba(76, 175, 80, 0.8);
+  border: none;
+  color: #fff;
+  font-size: 2em;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-controls button:hover {
+  background-color: rgba(76, 175, 80, 1);
+}
+
+@media (max-width: 768px) {
+  .carousel-slide h2 {
+    font-size: 1.5em;
+  }
+
+  .carousel-slide p {
+    font-size: 1em;
+  }
+
+  .carousel-controls button {
+    font-size: 1.5em;
+  }
+}

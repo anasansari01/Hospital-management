@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Hospital Management System</title>
+    <link rel="stylesheet" href="..\Style\styles.css">
+    <link rel="stylesheet" href="..\Style\loginStyles.css">>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login to Hospital Management System</h2>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+            <p id="loginMessage"></p>
+        </form>
+        <div class="links">
+            <a href="#">Forgot Password?</a>
+            <a href="register.html">Register</a>
+        </div>
+    </div>
+</body>
+<<script>
+  // Login form submission
+  document.getElementById('loginForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      try {
+          const response = await fetch('http://localhost:3000/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ username, password })
+          });
+          const result = await response.json();
+          document.getElementById('loginMessage').textContent = result.message;
+          if (response.ok) {
+              // Redirect to the main dashboard if login is successful
+              window.location.href = 'dashboard.html';
+          }
+      } catch (error) {
+          console.error('Error logging in:', error);
+          document.getElementById('loginMessage').textContent = 'Login failed. Please try again.';
+      }
+  });
+</script>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System Dashboard</title>
+    <link rel="stylesheet" href="..\Style\styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AIIMS DELHI</h1>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">Home</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="#" onclick="logout()">Logout</a></li>
+                    <li><a href="login.html" onclick="openLoginPage()">Login</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <aside class="sidebar">
+            <h2>About</h2>
+            <ul>
+                <li><a href="doctor.html">Doctors</a></li>
+                <li><a href="patients.html">Patients</a></li>
+                <li><a href="appointments.html">Appointments</a></li>
+                <li><a href="#">Billing</a></li>
+                <li><a href="#">Reports</a></li>
+            </ul>
+        </aside>
+
+        <footer>
+            <p>&copy; 2024 Hospital Management System</p>
+        </footer>
+    </div>
+</body>
+<script>
+    async function fetchPatients() {
+        try {
+            const response = await fetch('http://localhost:3000/patients');
+            if (!response.ok) throw new Error('Network response was not ok');
+            const patients = await response.json();
+            
+            const patientList = document.getElementById('patient-list');
+            patientList.innerHTML = '';
+            patients.forEach(patient => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${patient.first_name} ${patient.last_name}`;
+                patientList.appendChild(listItem);
+            });
+        } catch (error) {
+            console.error('Error fetching patients:', error);
+        }
+    }
+
+    function logout() {
+        // Clear any session data
+        sessionStorage.clear();
+        localStorage.clear();
+        
+        // Redirect to login page
+        window.location.href = "login.html";
+    }    
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Check if user is logged in by checking session storage or token
+        if (!sessionStorage.getItem("isLoggedIn")) {
+            // Redirect to login page if not logged in
+            window.location.href = "login.html";
+        }
+    });
+    
+    // On successful login
+    sessionStorage.setItem("isLoggedIn", "true");
+
+    window.onload = fetchPatients;
+
+</script>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Hospital Management System</title>
+    <link rel="stylesheet" href="..\Style\styles.css">
+    <link rel="stylesheet" href="..\Style\loginStyles.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Register New Account</h2>
+        <form id="registerForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            
+            <button type="submit">Register</button>
+            <p id="registerMessage"></p>
+        </form>
+        <div class="links">
+            <a href="login.html">Already have an account? Login</a>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById('registerForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            document.getElementById('registerMessage').textContent = "Passwords do not match.";
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const result = await response.json();
+            document.getElementById('registerMessage').textContent = result.message;
+            if (response.ok) {
+                // Redirect to login page if registration is successful
+                window.location.href = 'login.html';
+            }
+        } catch (error) {
+            console.error('Error during registration:', error);
+            document.getElementById('registerMessage').textContent = 'Registration failed. Please try again.';
+        }
+    });
+</script>
+</html>
